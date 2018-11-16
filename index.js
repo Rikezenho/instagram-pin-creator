@@ -50,6 +50,6 @@ app.get("/api/pin-creator", async (req, res) => {
   res.send(imageLocal);
 });
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT || PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
