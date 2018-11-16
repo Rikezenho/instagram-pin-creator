@@ -51,5 +51,5 @@ app.get("/api/pin-creator", async (req, res) => {
 });
 
 app.listen(process.env.PORT || PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+  console.log(`Server listening on port ${process.env.PORT || PORT}`);
 });
