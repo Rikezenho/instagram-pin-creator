@@ -1,6 +1,6 @@
 # Instagram Pin Creator
 
-A simple GET API to return a Google Maps Pin image applying mask over instagram images.
+A simple GET API to return a Google Maps Marker image, applying mask over instagram images.
 
 # How to use\*
 
