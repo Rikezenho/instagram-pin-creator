@@ -21,6 +21,10 @@ const getInstagramImageData = id =>
     )
     .catch(e => console.log(e));
 
+app.get("/", (req, res) => {
+  res.status(200).send("<h1>It works!</h1>");
+});
+
 app.get("/api/pin-creator", async (req, res) => {
   const { id } = req.query;
   if (!id) {
