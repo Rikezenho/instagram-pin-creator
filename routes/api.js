@@ -15,6 +15,10 @@ router.get("/pin-creator", async (req, res) => {
 
   getInstagramImageData(id)
     .then(async url => {
+      if (url.error) {
+        return res.status(500).send(url);
+      }
+
       const image = await jimp.read(url);
       const mask = await jimp.read("assets/red-dot-mask.png");
       const overlay = await jimp.read("assets/red-dot-shadow.png");
@@ -33,7 +37,10 @@ router.get("/pin-creator", async (req, res) => {
         });
     })
     .catch(e => {
-      res.status(500).send(e);
+      console.log(`Something wen't wrong!`);
+      res.status(500).send({
+        error: `Something wen't wrong!`
+      });
     });
 });
 
