@@ -14,7 +14,7 @@ router.get("/pin-creator", async (req, res) => {
   }
 
   getInstagramImageData(id)
-    .then(url => {
+    .then(async url => {
       const image = await jimp.read(url);
       const mask = await jimp.read("assets/red-dot-mask.png");
       const overlay = await jimp.read("assets/red-dot-shadow.png");
@@ -33,10 +33,7 @@ router.get("/pin-creator", async (req, res) => {
         });
     })
     .catch(e => {
-      res.status(500).send({
-        error:
-          "Error fetching instagram data! Maybe it's because the image isn't public."
-      });
+      res.status(500).send(e);
     });
 });
 
