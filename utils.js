@@ -13,7 +13,7 @@ const getInstagramImageData = id =>
           )
     )
     .catch(e => ({
-      error: `Error fetching instagram.`;
+      error: `Error fetching instagram.`
     }));
 
 module.exports = {
