@@ -2,7 +2,6 @@ const jimp = require("jimp");
 const express = require("express");
 const app = express();
 const axios = require("axios");
-const fs = require("fs");
 
 const PORT = 8080;
 
@@ -33,7 +32,6 @@ app.get("/api/pin-creator", async (req, res) => {
     });
   }
 
-  const filename = `pins/${id}.png`;
   const image = await jimp.read(await getInstagramImageData(id));
   const mask = await jimp.read("red-dot-mask.png");
   const overlay = await jimp.read("red-dot-shadow.png");
@@ -42,12 +40,14 @@ app.get("/api/pin-creator", async (req, res) => {
     .crop(0, 0, 200, 200)
     .mask(mask)
     .blit(overlay, 0, 0)
-    .write(filename);
-
-  const imageLocal = fs.readFileSync(filename);
-
-  res.contentType("image/jpeg");
-  res.send(imageLocal);
+    .getBase64(jimp.MIME_PNG, (err, src) => {
+      const img = new Buffer.from(src.split(",")[1], "base64");
+      res.writeHead(200, {
+        "Content-Type": "image/png",
+        "Content-Length": img.length
+      });
+      res.end(img);
+    });
 });
 
 app.listen(process.env.PORT || PORT, () => {
